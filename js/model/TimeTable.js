@@ -18,6 +18,8 @@
  * http://www.gnu.org/licenses/.
  ******************************************************************************/
 
+using ("model/VCalendar");
+
 function TimeTable(matnr)
 {
     if (typeof(matnr) != "number")
@@ -56,6 +58,8 @@ function TimeTable(matnr)
     
     this.loadIcs_success = function(data)
     {
-        console.log(data);
+        var v = new VCalendar();
+        v.init(data);
+        console.log(v.toString());
     }
 }
