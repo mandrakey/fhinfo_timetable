@@ -18,7 +18,8 @@
  * http://www.gnu.org/licenses/.
  ******************************************************************************/
 
-using ("model/VCalendar");
+using("model/TimeTableEntry");
+using("model/VCalendar");
 
 function TimeTable(matnr)
 {
@@ -59,7 +60,15 @@ function TimeTable(matnr)
     this.loadIcs_success = function(data)
     {
         var v = new VCalendar();
-        v.init(data);
-        console.log(v.toString());
+        v.parse(data);
+        
+        var i = 0;
+        var e = v.getVEvents();
+        for (; i < e.length; i++)
+            mEntries.push(new TimeTableEntry(e[i]));
+        
+        i = 0;
+        for (; i < mEntries.length; i++)
+            console.log(mEntries[i].toString());
     }
 }

@@ -47,6 +47,56 @@ function VEvent()
     mRRuleRx = /^RRULE:FREQ=([^;]+);UNTIL=([0-9]{8});BYDAY=([A-Z]{2})$/;
     mExdateRx = /^EXDATE:(.+)/;
     
+    this.getDtStamp = function()
+    {
+        return mDtStamp;
+    }
+    
+    this.getUid = function()
+    {
+        return mUid;
+    }
+    
+    this.getSummary = function()
+    {
+        return mSummary;
+    }
+    
+    this.getLocation = function()
+    {
+        return mLocation;
+    }
+    
+    this.getDtStart = function()
+    {
+        return mDtStart;
+    }
+    
+    this.getDtEnd = function()
+    {
+        return mDtEnd;
+    }
+    
+    this.getSequence = function()
+    {
+        return mSequence;
+    }
+    
+    this.getTransp = function()
+    {
+        return mTransp;
+    }
+    
+    this.getRRule = function()
+    {
+        return mRRule;
+    }
+    
+    this.getExdate = function()
+    {
+        return mExdate;
+    }
+    
     this.parse = function(text)
     {
         if (!typeof(text) == "array")

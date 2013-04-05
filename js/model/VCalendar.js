@@ -36,12 +36,37 @@ function VCalendar()
     var mMethodRx = /^METHOD:(.+)$/;
     var mVEventRx = /^BEGIN:VEVENT$/;
     
+    this.getProdId = function()
+    {
+        return mProdId;
+    }
+    
+    this.getVersion = function()
+    {
+        return mVersion;
+    }
+    
+    this.getCalScale = function()
+    {
+        return mCalScale;
+    }
+    
+    this.getMethod = function()
+    {
+        return mMethod;
+    }
+    
+    this.getVEvents = function()
+    {
+        return mVEvents;
+    }
+    
     /**
      * Parses given ICS file content.
      * @param icsData Textual data from an ICS file
      * @throw string
      */
-    this.init = function(icsData)
+    this.parse = function(icsData)
     {
         if (!typeof(icsData) == "string")
             throw "VCalendar.init: Cannot init VCalendar with empty dataset";
