@@ -66,9 +66,5 @@ function TimeTable(matnr)
         var e = v.getVEvents();
         for (; i < e.length; i++)
             mEntries.push(new TimeTableEntry(e[i]));
-        
-        i = 0;
-        for (; i < mEntries.length; i++)
-            console.log(mEntries[i].toString());
     }
 }

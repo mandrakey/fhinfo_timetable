@@ -23,6 +23,11 @@
 
 USING_SOURCE_PATH = "./js/";
 
+_MATNR = localStorage.getItem("matnr");
+_CURRENT_DAY = localStorage.getItem("currentDay");
+
+_TIMETABLE = sessionStorage.getItem("timetable");
+
 using("model/TimeTable");
 
 //==============================================================================
@@ -34,6 +39,15 @@ $(document).ready(function() {
 
 function main()
 {
-    t = new TimeTable(863325);
-    t.loadIcs();
+    //t = new TimeTable(863325);
+    //t.loadIcs();
+    
+    $(document).on("swipeleft", "#dayView", function() {
+        $.mobile.changePage("#dayView2", { transition: "slide" });
+        $.mobile.changePage("#dayView", { transition: "none" });
+    });
+    $(document).on("swiperight", "#dayView", function() {
+        $.mobile.changePage("#dayView2", { transition: "slide", reverse: true });
+        $.mobile.changePage("#dayView", { transition: "none" });
+    });
 }
