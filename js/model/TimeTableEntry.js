@@ -41,6 +41,31 @@ function TimeTableEntry(vevent)
     mEndDate.setFullYear(endDate[1], endDate[2], endDate[3]);
     mEndDate.setHours(endDate[4], endDate[5], endDate[6]);
     
+    this.name = function()
+    {
+        return mName;
+    }
+    
+    this.location = function()
+    {
+        return mLocation;
+    }
+    
+    this.rrule = function()
+    {
+        return mRRule;
+    }
+    
+    this.startDate = function()
+    {
+        return mStartDate;
+    }
+    
+    this.endDate = function()
+    {
+        return mEndDate;
+    }
+    
     this.toString = function()
     {
         var res = "TimeTableEntry ["
