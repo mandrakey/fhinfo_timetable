@@ -22,7 +22,7 @@
 // PROGRAM GLOBALS
 
 _TIMETABLE = null;
-_MATNR = null;
+_MATNR = localStorage.matnr;
 
 _WEEKDAYS = [
     { name: "Montag", short: "MO" },
@@ -48,6 +48,9 @@ function main()
     
     d = new Date();
     _CURRENT_DAY = d.getDay() - 1;
+    
+    if (_MATNR != null)
+        $("#loginForm_matnr")[0].value = _MATNR;
     
     $(document).on("swipeleft", "#pDayView", function() {
         if (_CURRENT_DAY < 5)

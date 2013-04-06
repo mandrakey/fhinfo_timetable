@@ -32,6 +32,7 @@ function loginForm_cmdLogin_click() {
     
     // Set _MATNR, load timetable
     _MATNR = parseInt(matnr);
+    localStorage.matnr = _MATNR;
     
     // Switch to calendar view
     $.mobile.changePage("#pDayView", { transition: "slide" });
