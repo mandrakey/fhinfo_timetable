@@ -42,7 +42,11 @@ function loginForm_cmdLogin_click() {
     
     // Load timetable
     t = new TimeTable(_MATNR);
-    t.loadIcs();
+    
+    if (!t.loadIcs()) {
+        $("#pDayView_emptyNote").popup("open", { positionTo: "window" });
+    }
+    
     _TIMETABLE = t;
     pDayView_displayTimetable();
     $.mobile.loading('hide');
@@ -70,10 +74,8 @@ function pDayView_displayTimetable(day)
     $('#pDayView_cmdSelectDay')[0].innerHTML = day.name;
     
     // Check for available entries
-    if (typeof(_TIMETABLE.entries()[day.short]) == "undefined") {
-        console.log("No entries for " + day.short);
+    if (typeof(_TIMETABLE.entries()[day.short]) == "undefined")
         return;
-    }
     
     // Display entries in timetable
     var i = 0;

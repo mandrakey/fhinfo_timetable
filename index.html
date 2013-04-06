@@ -45,6 +45,28 @@
         </h1>
     </div>
     <div data-role="content">
+        <div data-role="popup" id="pDayView_emptyNote">
+            <div data-role="header">
+                <p>Leere Antwort</p>
+            </div>
+            <div data-role="content">
+                <p>Der Server sendete eine leere Liste zurück. Das kann folgende 
+                Ursachen haben:</p>
+                <ul>
+                    <li>Für das aktuelle Semester sind keine Veranstaltungen 
+                        eingetragen</li>
+                    <li>Die eingegebene Matrikelnummer könnte falsch sein</li>
+                    <li>Es gibt ein Problem mit der Übertragung oder dem Server 
+                        selbst</li>
+                </ul>
+                
+                <p>
+                    <a data-role="button" 
+                        onclick="$('#pDayView_emptyNote').popup('close');">
+                        OK</a>
+                </p>
+            </div>
+        </div>
         
         <div class="timetable" id="pDayView_timeTableContainer">
             <div class="timetable-data" id="pDayView_timetable-data">

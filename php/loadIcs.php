@@ -32,5 +32,5 @@ $url = "https://fhinfo.fh-kl.de/portalapps/sp/Stundenplan.ics"
             . "&semid=".$_GET["semester"]
             . "&cw_inChannelLink=";
 
-//echo file_get_contents($url);
-echo file_get_contents("demofile.ics");
+echo file_get_contents($url);
+//echo file_get_contents("demofile.ics");

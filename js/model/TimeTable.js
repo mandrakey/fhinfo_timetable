@@ -67,7 +67,12 @@ function TimeTable(matnr)
     this.loadIcs_success = function(data)
     {
         var v = new VCalendar();
-        v.parse(data);
+        try {
+            v.parse(data);
+        } catch (e) {
+            // No data returned. Guess: Empty timetable for current semester...
+            return false;
+        }
         
         var i = 0;
         var e = v.getVEvents();
@@ -79,5 +84,7 @@ function TimeTable(matnr)
             var entry = new TimeTableEntry(e[i]);
             mEntries[day].push(entry);
         }
+        
+        return true;
     }
 }
