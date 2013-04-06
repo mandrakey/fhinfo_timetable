@@ -35,14 +35,30 @@ function TimeTableEntry(vevent)
     var mStartDate = new Date();
     mStartDate.setFullYear(startDate[1], startDate[2], startDate[3]);
     mStartDate.setHours(startDate[4], startDate[5], startDate[6]);
+    var mStartDateString = 
+        (((""+mStartDate.getHours()).length == 1) ? "0" : "") + mStartDate.getHours()
+        + ":"
+        + (((""+mStartDate.getMinutes()).length == 1) ? "0" : "") + mStartDate.getMinutes();
     
     var endDate = mDateTimeRx.exec(vevent.getDtEnd());
     var mEndDate = new Date();
     mEndDate.setFullYear(endDate[1], endDate[2], endDate[3]);
     mEndDate.setHours(endDate[4], endDate[5], endDate[6]);
+    var mEndDateString =
+        (((""+mEndDate.getHours()).length == 1) ? "0" : "") + mEndDate.getHours()
+        + ":"
+        + (((""+mEndDate.getMinutes()).length == 1) ? "0" : "") + mEndDate.getMinutes();
+    
     
     // Get day value
     var mDay = mRRule.ByDay;
+    
+    // Calculate top, width and height
+    var mTop = (mStartDate.getHours() - 8)*60 + mStartDate.getMinutes();
+    var mWidth = 100;
+    var mHeight = ((mEndDate.getHours() - 8)*60 + mEndDate.getMinutes()) - mTop;
+    var mBottom = mTop + mHeight;
+    var mHPosition = 0;
     
     this.name = function()
     {
@@ -64,14 +80,109 @@ function TimeTableEntry(vevent)
         return mStartDate;
     }
     
+    this.startDateString = function()
+    {
+        return mStartDateString;
+    }
+    
     this.endDate = function()
     {
         return mEndDate;
     }
     
+    this.endDateString = function()
+    {
+        return mEndDateString;
+    }
+    
     this.day = function()
     {
         return mDay;
+    }
+    
+    this.top = function()
+    {
+        return mTop;
+    }
+    
+    this.width = function()
+    {
+        return mWidth;
+    }
+    
+    this.height = function()
+    {
+        return mHeight;
+    }
+    
+    this.bottom = function()
+    {
+        return mBottom;
+    }
+    
+    this.hPosition = function()
+    {
+        return mHPosition;
+    }
+    
+    //==========================================================================
+    // Methods
+    
+    /**
+     * Check wether this TimeTableEntry overlaps with another one.
+     * @param other TimeTableEntry to compare this with
+     * @return Wether or not the entries overlap regarding their start and 
+     * end positions
+     */
+    this.overlaps = function(other)
+    {
+        return (mBottom < other.top() || mTop > other.bottom()) ? false : true;
+    }
+    
+    this.equals = function(other)
+    {
+        return (mName != other.name() || mLocation != other.location()
+                || mStartDate.toJSON() != other.startDate().toJSON()
+                || mEndDate.toJSON() != other.endDate().toJSON())
+            ? false : true;
+    }
+    
+    this.shrink = function(position)
+    {
+        if (mWidth == 100) {
+            console.log("Really shrink " + mName);
+            mWidth = 48;
+            mHPosition = position;
+        }
+    }
+    
+    /**
+     * Create timetable-entry div for diaplay.
+     * @return timetable-entry HTML code
+     */
+    this.toHtml = function()
+    {
+        var left = -1;
+        var right = -1;
+        if (mWidth < 100) {
+            if (mHPosition == 0)
+                left = 0;
+            else
+                right = 1;
+        } else {
+            left = 0;
+            right = 1;
+        }
+        
+        return '<div class="timetable-entry" '
+            + 'style="top: ' + mTop + 'px; height: ' + mHeight + 'px; '
+            + ((mWidth < 100) ? 'width: ' + mWidth + '%; ' : '')
+            + ((left > -1) ? 'left: ' + left + '%; ' : '') 
+            + ((right > -1) ? 'right: ' + right + '%; ' : '') + '">\n'
+            + '\t<p>' + mName + '<br>\n'
+            + '\t' + mStartDateString + ' - ' + mEndDateString + '<br>\n'
+            + '\t' + mLocation + '\n'
+            + '</p></div>';
     }
     
     this.toString = function()

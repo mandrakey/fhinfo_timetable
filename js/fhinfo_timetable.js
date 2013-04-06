@@ -33,7 +33,7 @@ _WEEKDAYS = [
     { name: "Samstag", short: "SA" },
     { name: "Sonntag", short: "SU" },
 ];
-_CURRENT_DAY = _WEEKDAYS[0];
+_CURRENT_DAY = 0;
 
 //==============================================================================
 // ENTRY POINT
@@ -47,14 +47,14 @@ function main()
     $.mobile.changePage("#login", { transition: "none" });
     
     d = new Date();
-    _CURRENT_DAY = _WEEKDAYS[d.getDay() - 1];
+    _CURRENT_DAY = d.getDay() - 1;
     
-    /* $(document).on("swipeleft", "#dayView", function() {
-        $.mobile.changePage("#dayView2", { transition: "slide" });
-        $.mobile.changePage("#dayView", { transition: "none" });
+    $(document).on("swipeleft", "#pDayView", function() {
+        if (_CURRENT_DAY < 5)
+            pDayView_displayTimetable(++_CURRENT_DAY);
     });
-    $(document).on("swiperight", "#dayView", function() {
-        $.mobile.changePage("#dayView2", { transition: "slide", reverse: true });
-        $.mobile.changePage("#dayView", { transition: "none" });
-    }); */
+    $(document).on("swiperight", "#pDayView", function() {
+        if (_CURRENT_DAY > 0)
+            pDayView_displayTimetable(--_CURRENT_DAY);
+    });
 }

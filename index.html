@@ -37,36 +37,37 @@
     </div>
 </div>
 
-<div data-role="page" id="dayView">
+<div data-role="page" id="pDayView">
     <div data-role="header">
         <h1>
-            <a data-role="button" href="#pSelectDay" data-rel="dialog">Montag</a>
+            <a data-role="button" href="#pSelectDay" data-rel="dialog"
+                id="pDayView_cmdSelectDay">Montag</a>
         </h1>
     </div>
     <div data-role="content">
         
-        <div class="timetable">
+        <div class="timetable" id="pDayView_timeTableContainer">
             <div class="timetable-data" id="pDayView_timetable-data">
-                <div class="timetable-entry" style="top: 0; height: 90px;">
+                <div class="timetable-entry" style="top: 0; height: 90px; right: 1%; width: 49%;">
                     <p>Grundlagen der Informatik V<br>
                     08:00 - 09:30<br>
                     Audimax</p>
                 </div>
                 
-                <div class="timetable-entry" style="top: 105px; height: 90px;">
+                <div class="timetable-entry" style="top: 0px; height: 90px; left: 0; width: 49%;">
                     <p>Grundlagen der Informatik V<br>
                     08:00 - 09:30<br>
                     Audimax</p>
                 </div>
                 
-                <div class="timetable-entry" style="top: 360px; height: 90px;">
+                <div class="timetable-entry" style="top: 360px; height: 90px; left: 0; right: 1%;">
                     <p>Grundlagen der Informatik V<br>
                     08:00 - 09:30<br>
                     Audimax</p>
                 </div>
             </div>
             
-            <div class="header-left">
+            <div class="header-left" id="pDayView_timeTableLeft">
                 <div>08:00</div>
                 <div>09:00</div>
                 <div>10:00</div>

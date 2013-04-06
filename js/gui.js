@@ -34,7 +34,7 @@ function loginForm_cmdLogin_click() {
     _MATNR = parseInt(matnr);
     
     // Switch to calendar view
-    $.mobile.changePage("#dayView", { transition: "slide" });
+    $.mobile.changePage("#pDayView", { transition: "slide" });
     $.mobile.loading("show", { 
         text: "Veranstaltungen werden geladen", 
         textVisible: true
@@ -54,13 +54,20 @@ function loginForm_cmdLogin_click() {
 
 function pDayView_displayTimetable(day)
 {
-    if (typeof(day) != "object" || typeof(day.name) == "undefined" || 
-            typeof(day.short) == "undefined")
+    if (typeof(day) != "number")
         day = _CURRENT_DAY;
+    else
+        _CURRENT_DAY = day;
+    
+    // Get day object
+    day = _WEEKDAYS[day];
     
     // Clear timetable
     var element = $("#pDayView_timetable-data");
     element[0].innerHTML = "";
+    
+    //Replace text on day button
+    $('#pDayView_cmdSelectDay')[0].innerHTML = day.name;
     
     // Check for available entries
     if (typeof(_TIMETABLE.entries()[day.short]) == "undefined") {
@@ -70,31 +77,30 @@ function pDayView_displayTimetable(day)
     
     // Display entries in timetable
     var i = 0;
-    console.log(_TIMETABLE.entries());
     var e = _TIMETABLE.entries()[day.short];
+    var displayEntries = [];
+    var scrollTarget = 9999;
     
     for (; i < e.length; i++) {
-        var startDate = e[i].startDate();
-        var endDate = e[i].endDate();
-        var top = (startDate.getHours() - 8)*60 + startDate.getMinutes();
-        var height = ((endDate.getHours() - 8)*60 + endDate.getMinutes()) - top;
+        //Determine overlapping entries and scroll target
+        var j = 0;
+        for (; j < e.length; j++) {
+            if (!e[i].equals(e[j]) && e[i].overlaps(e[j])) {
+                e[i].shrink(0);
+                e[j].shrink(1);
+            }
+        }
         
-        var startDateString = 
-            (((""+startDate.getHours()).length == 1) ? "0" : "") + startDate.getHours()
-            + ":"
-            + (((""+startDate.getMinutes()).length == 1) ? "0" : "") + startDate.getMinutes();
-        var endDateString = 
-            (((""+endDate.getHours()).length == 1) ? "0" : "") + endDate.getHours()
-            + ":"
-            + (((""+endDate.getMinutes()).length == 1) ? "0" : "") + endDate.getMinutes();
-        
-        var entry = '<div class="timetable-entry" style="top: ' + top + 'px; height: ' + height + 'px;">\n'
-            + '\t<p>' + e[i].name() + '<br>\n'
-            + '\t' + startDateString + ' - ' + endDateString + '<br>\n'
-            + '\t' + e[i].location() + '\n'
-            + '</p></div>';
-        element.append(entry);
+        if (scrollTarget > e[i].top())
+            scrollTarget = e[i].top();
     }
+    
+    i = 0;
+    for (; i < e.length; i++)
+        element.append(e[i].toHtml());
+    
+    console.log("scroll to " + scrollTarget);
+    $.mobile.silentScroll(scrollTarget);
 }
 
 /* *****************************************************************************
@@ -103,7 +109,7 @@ function pDayView_displayTimetable(day)
 
 function pSelectDay_daySelect(elem)
 {
-    day = _WEEKDAYS[parseInt($(elem).attr("rel"))];
+    day = parseInt($(elem).attr("rel"));
     pDayView_displayTimetable(day);
     $("#pSelectDay").dialog("close");
 }
