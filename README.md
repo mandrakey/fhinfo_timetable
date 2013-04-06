@@ -34,7 +34,7 @@ contact me to work on the original for I am thinking about adapting it for
 other sources (e.g. XML format, other institutions ...) some time.
 
 ## License
-Copyright (C) 2013 Maurice Bleuel <mbleuel@bleuelmedia.com>
+Copyright (C) 2013 Maurice Bleuel <mandrakey@lavabit.com>
 
 asciidoc.js is free software; you can redistribute it and/or modify it 
 under the terms of the GNU General Public License as published by the Free 
