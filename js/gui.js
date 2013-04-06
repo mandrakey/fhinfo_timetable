@@ -43,9 +43,9 @@ function loginForm_cmdLogin_click() {
     // Load timetable
     t = new TimeTable(_MATNR);
     
-    if (!t.loadIcs()) {
-        $("#pDayView_emptyNote").popup("open", { positionTo: "window" });
-    }
+    if (!t.loadIcs())
+        setTimeout('$("#pDayView_emptyNote").popup("open", { positionTo: "window" });',
+            500);
     
     _TIMETABLE = t;
     pDayView_displayTimetable();
@@ -101,8 +101,7 @@ function pDayView_displayTimetable(day)
     for (; i < e.length; i++)
         element.append(e[i].toHtml());
     
-    console.log("scroll to " + scrollTarget);
-    $.mobile.silentScroll(scrollTarget);
+    setTimeout("$.mobile.silentScroll(" + scrollTarget + ");", 500);
 }
 
 /* *****************************************************************************
