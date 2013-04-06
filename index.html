@@ -6,56 +6,95 @@
     <meta charset="utf-8">
     
     <link rel="stylesheet" type="text/css" href="lib/jquery.mobile-1.3.0.min.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
     <script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="lib/jquery.mobile-1.3.0.min.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="lib/json2.js"></script>
+    
+    <script type="text/javascript" src="js/model/VEvent.js"></script>
+    <script type="text/javascript" src="js/model/TimeTableEntry.js"></script>
+    <script type="text/javascript" src="js/model/VCalendar.js"></script>
+    <script type="text/javascript" src="js/model/TimeTable.js"></script>
     <script type="text/javascript" src="js/fhinfo_timetable.js"></script>
+    <script type="text/javascript" src="js/gui.js"></script>
 </head>
 <body>
 
-<!-- <div data-role="page" id="login">
+<div data-role="page" id="pLogin">
     <div data-role="header">
         <h1>Login</h1>
     </div>
     
     <div data-role="content">
-        <form name="loginForm">
+        <form name="loginForm" id="loginForm">
         
         <label for="matnr">Matrikelnummer:</label>
-        <input rel="loginForm" name="matnr" type="number" required>
+        <input rel="loginForm" id="loginForm_matnr" type="number" required>
         
-        <a data-role="button">Login</a>
+        <a data-role="button" id="loginForm_cmdLogin" onclick="loginForm_cmdLogin_click();">Login</a>
         
         </form>
     </div>
-</div> -->
+</div>
 
 <div data-role="page" id="dayView">
     <div data-role="header">
         <h1>
-            <a data-role="button" href="#selectDay" data-rel="popup">Montag</a>
+            <a data-role="button" href="#pSelectDay" data-rel="dialog">Montag</a>
         </h1>
     </div>
     <div data-role="content">
-    <div data-role="popup" id="selectDay" data-shadow="true" data-position-to="window">
-        <div data-role="content">
-            <ul data-role="listview" data-icon="">
-                <li><a href="javascript:void(0);">Montag</a></li>
-                <li><a href="javascript:void(0);">Dienstag</a></li>
-                <li><a href="javascript:void(0);">Mittwoch</a></li>
-                <li><a href="javascript:void(0);">Donnerstag</a></li>
-                <li><a href="javascript:void(0);">Freitag</a></li>
-            </ul>
+        
+        <div class="timetable">
+            <div class="timetable-data" id="pDayView_timetable-data">
+                <div class="timetable-entry" style="top: 0; height: 90px;">
+                    <p>Grundlagen der Informatik V<br>
+                    08:00 - 09:30<br>
+                    Audimax</p>
+                </div>
+                
+                <div class="timetable-entry" style="top: 105px; height: 90px;">
+                    <p>Grundlagen der Informatik V<br>
+                    08:00 - 09:30<br>
+                    Audimax</p>
+                </div>
+                
+                <div class="timetable-entry" style="top: 360px; height: 90px;">
+                    <p>Grundlagen der Informatik V<br>
+                    08:00 - 09:30<br>
+                    Audimax</p>
+                </div>
+            </div>
+            
+            <div class="header-left">
+                <div>08:00</div>
+                <div>09:00</div>
+                <div>10:00</div>
+                <div>11:00</div>
+                <div>12:00</div>
+                <div>13:00</div>
+                <div>14:00</div>
+                <div>15:00</div>
+                <div>16:00</div>
+                <div>17:00</div>
+                <div>18:00</div>
+                <div>19:00</div>
+            </div>
         </div>
-    </div>
+        
     </div>
 </div>
 
-<div data-role="page" id="dayView2">
-    <div data-role="header">
-        <h1>
-            <a data-role="button" href="#selectDay" data-rel="popup">Montag</a>
-        </h1>
+<div data-role="page" id="pSelectDay">
+    <div data-role="content">
+        <ul data-role="listview" data-icon="">
+            <li><a href="javascript:void(0);" onclick="pSelectDay_daySelect(this);" rel="0">Montag</a></li>
+            <li><a href="javascript:void(0);" onclick="pSelectDay_daySelect(this);" rel="1">Dienstag</a></li>
+            <li><a href="javascript:void(0);" onclick="pSelectDay_daySelect(this);" rel="2">Mittwoch</a></li>
+            <li><a href="javascript:void(0);" onclick="pSelectDay_daySelect(this);" rel="3">Donnerstag</a></li>
+            <li><a href="javascript:void(0);" onclick="pSelectDay_daySelect(this);" rel="4">Freitag</a></li>
+            <li><a href="javascript:void(0);" onclick="pSelectDay_daySelect(this);" rel="5">Samstag</a></li>
+        </ul>
     </div>
 </div>
 

@@ -1,0 +1,63 @@
+/*******************************************************************************
+ * Copyright (C) 2013 Maurice Bleuel <mandrakey@lavabit.com>
+ * 
+ * This file is part of FHInfo Timetable.
+ * 
+ * FHInfo Timetable is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the Free 
+ * Software Foundation, either version 3 of the license, or (at your option) 
+ * any later version.
+ * 
+ * FHInfo Timetable is distributed in the hope that it will be useful, but 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTIBILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General 
+ * Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License 
+ * along with FHInfo Timetable. If not, see
+ * http://www.gnu.org/licenses/.
+ ******************************************************************************/
+
+* {
+    font-family: "Ubuntu", "DejaVu Sans", Verdana, sans-serif;
+}
+
+/* *****************************************************************************
+ * div.timetable
+ * ****************************************************************************/
+
+div.timetable {
+    width: 100%;
+    margin: auto;
+    border: 1px solid #999999;
+    background: #fff;
+    position: relative;
+    height: 720px;
+}
+
+div.timetable div.header-left {
+    display: table;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 720px;
+}
+div.timetable div.header-left div {
+    min-height: 60px;
+    background: #CCCCCC;
+}
+
+div.timetable div.timetable-data {
+    position: relative;
+    left: 20px;
+}
+div.timetable div.timetable-data div.timetable-entry {
+    position: absolute;
+    left: 40px;
+    right: 40px;
+    border: 2px solid #000;
+    border-radius: 5px;
+}
+div.timetable-entry p {
+    margin: 5px;
+}

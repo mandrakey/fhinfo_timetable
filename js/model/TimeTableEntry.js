@@ -41,6 +41,9 @@ function TimeTableEntry(vevent)
     mEndDate.setFullYear(endDate[1], endDate[2], endDate[3]);
     mEndDate.setHours(endDate[4], endDate[5], endDate[6]);
     
+    // Get day value
+    var mDay = mRRule.ByDay;
+    
     this.name = function()
     {
         return mName;
@@ -64,6 +67,11 @@ function TimeTableEntry(vevent)
     this.endDate = function()
     {
         return mEndDate;
+    }
+    
+    this.day = function()
+    {
+        return mDay;
     }
     
     this.toString = function()

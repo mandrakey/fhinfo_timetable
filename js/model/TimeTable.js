@@ -18,9 +18,6 @@
  * http://www.gnu.org/licenses/.
  ******************************************************************************/
 
-using("model/TimeTableEntry");
-using("model/VCalendar");
-
 function TimeTable(matnr)
 {
     if (typeof(matnr) != "number")
@@ -40,6 +37,16 @@ function TimeTable(matnr)
     /** Contains the current semester. */
     var mSemester = year + ((month < 9 || month > 2) ? "1" : "2");
     mSemester = "20122";
+    
+    this.matNr = function()
+    {
+        return mMatNr;
+    }
+    
+    this.entries = function()
+    {
+        return mEntries;
+    }
     
     this.loadIcs = function()
     {
@@ -64,7 +71,13 @@ function TimeTable(matnr)
         
         var i = 0;
         var e = v.getVEvents();
-        for (; i < e.length; i++)
-            mEntries.push(new TimeTableEntry(e[i]));
+        for (; i < e.length; i++) {
+            var day = e[i].getRRule().ByDay;
+            if (typeof(mEntries[day]) == "undefined")
+                mEntries[day] = [];
+            
+            var entry = new TimeTableEntry(e[i]);
+            mEntries[day].push(entry);
+        }
     }
 }

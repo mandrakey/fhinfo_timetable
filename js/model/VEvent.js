@@ -36,16 +36,16 @@ function VEvent()
     var mExdate = [];
     
     // Parser RX
-    mDtStampRx = /^DTSTAMP:([0-9]{8}T[0-9]{6}Z)$/;
-    mUidRx = /^UID:([0-9]{8}T[0-9]{6}Z.+@fhinfo\.fh-kl\.de)$/;
-    mSummaryRx = /^SUMMARY:(.+)$/;
-    mLocationRx = /^LOCATION:(.+)$/;
-    mDtStartRx = /^DTSTART:([0-9]{8}T[0-9]{6})$/;
-    mDtEndRx = /^DTEND:([0-9]{8}T[0-9]{6})$/;
-    mSequenceRx = /^SEQUENCE:([0-9]+)$/;
-    mTranspRx = /^TRANSP:(.+)$/;
-    mRRuleRx = /^RRULE:FREQ=([^;]+);UNTIL=([0-9]{8});BYDAY=([A-Z]{2})$/;
-    mExdateRx = /^EXDATE:(.+)/;
+    var mDtStampRx = /^DTSTAMP:([0-9]{8}T[0-9]{6}Z)$/;
+    var mUidRx = /^UID:([0-9]{8}T[0-9]{6}Z.+@fhinfo\.fh-kl\.de)$/;
+    var mSummaryRx = /^SUMMARY:(.+)$/;
+    var mLocationRx = /^LOCATION:(.+)$/;
+    var mDtStartRx = /^DTSTART:([0-9]{8}T[0-9]{6})$/;
+    var mDtEndRx = /^DTEND:([0-9]{8}T[0-9]{6})$/;
+    var mSequenceRx = /^SEQUENCE:([0-9]+)$/;
+    var mTranspRx = /^TRANSP:(.+)$/;
+    var mRRuleRx = /^RRULE:FREQ=([^;]+);UNTIL=([0-9]{8});BYDAY=([A-Z]{2})$/;
+    var mExdateRx = /^EXDATE:(.+)/;
     
     this.getDtStamp = function()
     {

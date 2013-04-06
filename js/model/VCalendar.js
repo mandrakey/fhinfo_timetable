@@ -18,8 +18,6 @@
  * http://www.gnu.org/licenses/.
  ******************************************************************************/
 
-using("model/VEvent");
-
 function VCalendar()
 {
     var mProdId = "";

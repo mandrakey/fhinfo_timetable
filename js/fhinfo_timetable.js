@@ -21,33 +21,40 @@
 //==============================================================================
 // PROGRAM GLOBALS
 
-USING_SOURCE_PATH = "./js/";
+_TIMETABLE = null;
+_MATNR = null;
 
-_MATNR = localStorage.getItem("matnr");
-_CURRENT_DAY = localStorage.getItem("currentDay");
-
-_TIMETABLE = sessionStorage.getItem("timetable");
-
-using("model/TimeTable");
+_WEEKDAYS = [
+    { name: "Montag", short: "MO" },
+    { name: "Dienstag", short: "TU" },
+    { name: "Mittwoch", short: "WE" },
+    { name: "Donnerstag", short: "TH" },
+    { name: "Freitag", short: "FR" },
+    { name: "Samstag", short: "SA" },
+    { name: "Sonntag", short: "SU" },
+];
+_CURRENT_DAY = _WEEKDAYS[0];
 
 //==============================================================================
 // ENTRY POINT
 
 $(document).ready(function() {
-    setTimeout(main, 200);
+    setTimeout(main, 300);
 });
 
 function main()
 {
-    //t = new TimeTable(863325);
-    //t.loadIcs();
+    $.mobile.changePage("#login", { transition: "none" });
     
-    $(document).on("swipeleft", "#dayView", function() {
+    d = new Date();
+    _CURRENT_DAY = _WEEKDAYS[d.getDay() - 1];
+    
+    /* $(document).on("swipeleft", "#dayView", function() {
         $.mobile.changePage("#dayView2", { transition: "slide" });
         $.mobile.changePage("#dayView", { transition: "none" });
     });
     $(document).on("swiperight", "#dayView", function() {
         $.mobile.changePage("#dayView2", { transition: "slide", reverse: true });
         $.mobile.changePage("#dayView", { transition: "none" });
-    });
+    }); */
 }
