@@ -21,9 +21,13 @@
 //==============================================================================
 // PROGRAM GLOBALS
 
+/** Global timetable instance holder. */
 _TIMETABLE = null;
+
+/** Global Matrikelnummer holder. */
 _MATNR = localStorage.matnr;
 
+/** Contains all weekdays, their text and short names for ICS files. */
 _WEEKDAYS = [
     { name: "Montag", short: "MO" },
     { name: "Dienstag", short: "TU" },
@@ -33,6 +37,8 @@ _WEEKDAYS = [
     { name: "Samstag", short: "SA" },
     { name: "Sonntag", short: "SU" },
 ];
+
+/** Contains the current day (index for _WEEKDAYS). */
 _CURRENT_DAY = 0;
 
 //==============================================================================
@@ -42,6 +48,11 @@ $(document).ready(function() {
     setTimeout(main, 300);
 });
 
+/**
+ * Program entry point.
+ * Shows login page, gets current date, loads data from local and session 
+ * storage and prepares events to be handled.
+ */
 function main()
 {
     $.mobile.changePage("#login", { transition: "none" });

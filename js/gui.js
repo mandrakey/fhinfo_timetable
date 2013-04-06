@@ -18,10 +18,18 @@
  * http://www.gnu.org/licenses/.
  ******************************************************************************/
 
+/**
+ * Contains handlers/functions for GUI interaction.
+ * @file gui.js
+ */
+
 /* *****************************************************************************
  * pLogin
  * ****************************************************************************/
-
+ 
+/**
+ * Handle click on login button on login form.
+ */
 function loginForm_cmdLogin_click() {
     var matnr = $("#loginForm_matnr")[0].value;
     if (/^[0-9]{6}$/.test(matnr) != true) {
@@ -59,6 +67,10 @@ function loginForm_cmdLogin_click() {
  * pDayView
  * ****************************************************************************/
 
+/**
+ * Display all timetable entries for a given day.
+ * @param day Day to load entries for (index for _WEEKDAYS).
+ */
 function pDayView_displayTimetable(day)
 {
     if (typeof(day) != "number")
@@ -111,6 +123,10 @@ function pDayView_displayTimetable(day)
  * pSelectDay
  * ****************************************************************************/
 
+/**
+ * Handles click on a day in the select day dialog.
+ * @param elem Dom element clicked (button, attribute "rel" contains day id)
+ */
 function pSelectDay_daySelect(elem)
 {
     day = parseInt($(elem).attr("rel"));

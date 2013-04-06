@@ -18,20 +18,35 @@
  * http://www.gnu.org/licenses/.
  ******************************************************************************/
 
+/**
+ * Construct a new TimeTableEntry representing timetable entries.
+ * @param vevent Original ICS VEVENT data to use in creation
+ * @return A new TimeTableEntry instance
+ * @todo Maybe mDateTimeRx is not necessary: JavaScript Date seems to handle 
+ * date values exactly like input internally...
+ */
 function TimeTableEntry(vevent)
 {
     if (!vevent instanceof VEvent)
         throw "TimeTableEntry: Need instance of VEvent for construction";
     
     // RX's
+    /** Regular expression used to extract Date and Time values seperatly. */
     var mDateTimeRx = /^([0-9]{4})([0-9]{2})([0-9]{2})T([0-9]{2})([0-9]{2})([0-9]{2})$/;
     
+    /** Name of the table entry event. */
     var mName = vevent.getSummary();
+    
+    /** Location of the event. */
     var mLocation = vevent.getLocation();
+    
+    /** Data about how often and when this event recurs. */
     var mRRule = vevent.getRRule();
     
     // Parse date values from VEvent
     var startDate = mDateTimeRx.exec(vevent.getDtStart());
+    
+    /** Date the event begins. */
     var mStartDate = new Date();
     mStartDate.setFullYear(startDate[1], startDate[2], startDate[3]);
     mStartDate.setHours(startDate[4], startDate[5], startDate[6]);
@@ -41,6 +56,8 @@ function TimeTableEntry(vevent)
         + (((""+mStartDate.getMinutes()).length == 1) ? "0" : "") + mStartDate.getMinutes();
     
     var endDate = mDateTimeRx.exec(vevent.getDtEnd());
+    
+    /** Date the event ends. */
     var mEndDate = new Date();
     mEndDate.setFullYear(endDate[1], endDate[2], endDate[3]);
     mEndDate.setHours(endDate[4], endDate[5], endDate[6]);
@@ -51,14 +68,27 @@ function TimeTableEntry(vevent)
     
     
     // Get day value
+    /** Short english name of the day the event is taking place. */
     var mDay = mRRule.ByDay;
     
     // Calculate top, width and height
+    /** How far from the top is this event being rendered? */
     var mTop = (mStartDate.getHours() - 8)*60 + mStartDate.getMinutes();
+    
+    /** Width of the event entry. */
     var mWidth = 100;
+    
+    /** Height of the event entry. */
     var mHeight = ((mEndDate.getHours() - 8)*60 + mEndDate.getMinutes()) - mTop;
+    
+    /** Calculated bottom position where the rendered element ends. */
     var mBottom = mTop + mHeight;
+    
+    /** Is it rendered left or right, if necessary? */
     var mHPosition = 0;
+    
+    //==========================================================================
+    // GETTER / SETTER
     
     this.name = function()
     {
@@ -139,6 +169,11 @@ function TimeTableEntry(vevent)
         return (mBottom < other.top() || mTop > other.bottom()) ? false : true;
     }
     
+    /**
+     * Determine wether this TimeTableEntry and the other are the same.
+     * @param other
+     * @return True if they are identical, False if not
+     */
     this.equals = function(other)
     {
         return (mName != other.name() || mLocation != other.location()
@@ -147,10 +182,15 @@ function TimeTableEntry(vevent)
             ? false : true;
     }
     
+    /**
+     * Make this TimeTableEntry render half the size.
+     * Used if overlapping with another entry so both can be displayed 
+     * aside one another.
+     * @param position Where this entry will be rendered. 0 means left, 1 right.
+     */
     this.shrink = function(position)
     {
         if (mWidth == 100) {
-            console.log("Really shrink " + mName);
             mWidth = 48;
             mHPosition = position;
         }
@@ -159,6 +199,8 @@ function TimeTableEntry(vevent)
     /**
      * Create timetable-entry div for diaplay.
      * @return timetable-entry HTML code
+     * @todo Find a way to refactor the width and position calculation... looks 
+     * just ugly.
      */
     this.toHtml = function()
     {
@@ -185,6 +227,10 @@ function TimeTableEntry(vevent)
             + '</p></div>';
     }
     
+    /**
+     * Return a string representation of this object.
+     * @return String representation
+     */
     this.toString = function()
     {
         var res = "TimeTableEntry ["

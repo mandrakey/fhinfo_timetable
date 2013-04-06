@@ -20,6 +20,13 @@
  * http://www.gnu.org/licenses/.
  ******************************************************************************/
 
+/**
+ * Contains very very simple functionality to load ICS file from FHInfo.
+ * File is downloaded using file_get_contents.
+ * @file loadIcs.php
+ * @see http://php.net/file_get_contents
+ */
+
 if (!isset($_GET["matnr"]) || !is_numeric($_GET["matnr"]))
     die("ERR:Need matnr to continue");
 if (!isset($_GET["semester"]) || !is_numeric($_GET["matnr"]))

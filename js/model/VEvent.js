@@ -18,21 +18,44 @@
  * http://www.gnu.org/licenses/.
  ******************************************************************************/
 
+/**
+ * Create a new VEvent instance, representing one VEVENT inside a VCALENDAR.
+ * @return VEvent instance
+ */
 function VEvent()
 {
+    /** DTSTAMP value. */
     var mDtStamp = "";
+    
+    /** UID value. */
     var mUid = "";
+    
+    /** SUMMARY value. */
     var mSummary = "";
+    
+    /** LOCATION value. */
     var mLocation = "";
+    
+    /** DTSTART value. */
     var mDtStart = "";
+    
+    /** DTEND value. */
     var mDtEnd = "";
+    
+    /** SEQUENCE value. */
     var mSequence = "";
+    
+    /** TRANSP value. */
     var mTransp = "";
+    
+    /** RRULE value. */
     var mRRule = {
         Freq: "",
         Until: "",
         ByDay: ""
     };
+    
+    /** EXDATE value. */
     var mExdate = [];
     
     // Parser RX
@@ -46,6 +69,9 @@ function VEvent()
     var mTranspRx = /^TRANSP:(.+)$/;
     var mRRuleRx = /^RRULE:FREQ=([^;]+);UNTIL=([0-9]{8});BYDAY=([A-Z]{2})$/;
     var mExdateRx = /^EXDATE:(.+)/;
+    
+    //==========================================================================
+    // GETTER / SETTER
     
     this.getDtStamp = function()
     {
@@ -97,6 +123,15 @@ function VEvent()
         return mExdate;
     }
     
+    //==========================================================================
+    // METHODS
+    
+    /**
+     * Parses given VEVENT content.
+     * @param text Array containing text of the VEVENT taken directly from ICS 
+     * file
+     * @throw string
+     */
     this.parse = function(text)
     {
         if (!typeof(text) == "array")
@@ -143,6 +178,10 @@ function VEvent()
         }
     }
     
+    /**
+     * Return string representation of this VEVENT instance.
+     * @return String representation
+     */
     this.toString = function()
     {
         var res = "dtstamp: " + mDtStamp + "\n"

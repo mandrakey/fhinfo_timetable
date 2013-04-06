@@ -18,13 +18,25 @@
  * http://www.gnu.org/licenses/.
  ******************************************************************************/
 
+/**
+ * Construct a new VCalendar instance representing a VCALENDAR from ICS file.
+ * @return VCalendar instance
+ */
 function VCalendar()
 {
+    /** PRODID value. */
     var mProdId = "";
+    
+    /** VERSION value. */
     var mVersion = "";
+    
+    /** CALSCALE value. */
     var mCalScale = "";
+    
+    /** METHOD value. */
     var mMethod = "";
     
+    /** List of contained VEVENTs, if any. */
     var mVEvents = [];
     
     // Parser RX
@@ -33,6 +45,9 @@ function VCalendar()
     var mCalScaleRx = /^CALSCALE:(.+)$/;
     var mMethodRx = /^METHOD:(.+)$/;
     var mVEventRx = /^BEGIN:VEVENT$/;
+    
+    //==========================================================================
+    // GETTER / SETTER
     
     this.getProdId = function()
     {
@@ -103,6 +118,10 @@ function VCalendar()
         
     }
     
+    /**
+     * Return string representation of this VCALENDAR instance.
+     * @return String representation
+     */
     this.toString = function()
     {
         var res = "prodid: " + mProdId + "\n"

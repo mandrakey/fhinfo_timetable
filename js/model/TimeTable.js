@@ -18,6 +18,11 @@
  * http://www.gnu.org/licenses/.
  ******************************************************************************/
 
+/**
+ * Created a new TimeTable instance representing a complete timetable.
+ * @param matnr The Matrikelnummer to load data for
+ * @return TimeTable instance
+ */
 function TimeTable(matnr)
 {
     if (typeof(matnr) != "number")
@@ -40,6 +45,9 @@ function TimeTable(matnr)
     /** Contains the current semester. */
     var mSemester = year + ((month < 9 || month > 2) ? "1" : "2");
     
+    //==========================================================================
+    // GETTER / SETTER
+    
     this.matNr = function()
     {
         return mMatNr;
@@ -55,6 +63,13 @@ function TimeTable(matnr)
         return mEntryCount;
     }
     
+    //==========================================================================
+    // METHODS
+    
+    /**
+     * Start loading the ICS file for given student and semester.
+     * Starts synchronous AJAX call.
+     */
     this.loadIcs = function()
     {
         if (typeof(mMatNr) != "number" || mSemester.trim() == "")
@@ -71,6 +86,13 @@ function TimeTable(matnr)
        });
     }
     
+    /**
+     * Handles AJAX call success.
+     * Starts parsing returned ICS document and creates TimeTableEntries. After 
+     * this, the timetable is ready to be rendered.
+     * @param data Textual data of ICS document
+     * @todo Perhaps make error handling a bit better...
+     */
     this.loadIcs_success = function(data)
     {
         var v = new VCalendar();
