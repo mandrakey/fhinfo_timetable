@@ -33,4 +33,3 @@ $url = "https://fhinfo.fh-kl.de/portalapps/sp/Stundenplan.ics"
             . "&cw_inChannelLink=";
 
 echo file_get_contents($url);
-//echo file_get_contents("demofile.ics");

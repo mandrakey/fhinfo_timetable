@@ -29,6 +29,9 @@ function TimeTable(matnr)
     /** Contains timetable entries. */
     var mEntries = [];
     
+    /** Contains count of entries. */
+    var mEntryCount = 0;
+    
     // Calculate semester value
     var d = new Date();
     var year = d.getFullYear();
@@ -36,7 +39,6 @@ function TimeTable(matnr)
     
     /** Contains the current semester. */
     var mSemester = year + ((month < 9 || month > 2) ? "1" : "2");
-    mSemester = "20122";
     
     this.matNr = function()
     {
@@ -46,6 +48,11 @@ function TimeTable(matnr)
     this.entries = function()
     {
         return mEntries;
+    }
+    
+    this.entryCount = function()
+    {
+        return mEntryCount;
     }
     
     this.loadIcs = function()
@@ -71,7 +78,7 @@ function TimeTable(matnr)
             v.parse(data);
         } catch (e) {
             // No data returned. Guess: Empty timetable for current semester...
-            return false;
+            return;
         }
         
         var i = 0;
@@ -83,8 +90,7 @@ function TimeTable(matnr)
             
             var entry = new TimeTableEntry(e[i]);
             mEntries[day].push(entry);
+            mEntryCount++;
         }
-        
-        return true;
     }
 }

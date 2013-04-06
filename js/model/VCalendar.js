@@ -70,7 +70,7 @@ function VCalendar()
             throw "VCalendar.init: Cannot init VCalendar with empty dataset";
         
         var curLine = 0;
-        var text = icsData.split("\n");
+        var text = icsData.split(/\n|\r\n|\r/);
         
         // Check for valid document start: BEGIN:VCALENDAR
         if (text[curLine++] != "BEGIN:VCALENDAR")

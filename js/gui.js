@@ -42,14 +42,16 @@ function loginForm_cmdLogin_click() {
     
     // Load timetable
     t = new TimeTable(_MATNR);
-    
-    if (!t.loadIcs())
-        setTimeout('$("#pDayView_emptyNote").popup("open", { positionTo: "window" });',
-            500);
-    
+    t.loadIcs();
     _TIMETABLE = t;
     pDayView_displayTimetable();
     $.mobile.loading('hide');
+    
+    console.log(t.entryCount());
+    if (t.entryCount() == 0) {
+        setTimeout('$("#pDayView_emptyNote").popup("open", { positionTo: "window" });',
+            500);
+    }
 }
 
 /* *****************************************************************************
